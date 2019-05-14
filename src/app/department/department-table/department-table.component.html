@@ -1,0 +1,74 @@
+<span *ngIf="Display===true">
+<p-table [value]="departmentList"  selectionMode="single"  [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)">
+  <ng-template class="u-ig-4" pTemplate="caption">
+      List of Department 
+      <div class="u-ig-4" style="text-align: right">
+        <button pButton type="button" (click)="addItem()" label="Add" class="ui-button-success"></button>
+      </div>
+  </ng-template>
+  
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th style="text-align: center">
+          Code
+          </th>
+          <th style="text-align: center">
+          Department
+          </th>
+          <th style="text-align: center">
+          Province
+          </th>
+          <th style="text-align: center">
+          Budget
+          </th>
+          <th style="text-align: center">
+          Status
+          </th>
+          <th style="text-align: center">
+          telephone
+          </th>
+          <th style="text-align: center">
+          Remove
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+          <td style="text-align: center">
+            {{rowData.departmentCode}} 
+          </td>
+          <td>
+            {{rowData.departmentName}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.province | emptyDefault}}
+          </td>
+          <td style="text-align: right">
+            {{rowData.budget | number: "1.0-2"}}
+          </td>
+          <td style="text-align: center">
+            {{rowData.status | status}}
+          </td>
+          <td >
+            {{rowData.telephone | telephoneSplit}}
+          </td>
+          <td style="text-align: center">
+              <button pButton type="button" (click)="deletDepartment(rowData.departmentCode)" label="Remove" class="ui-button-danger"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [closeOnEscape]="true" header="DepartmentRegisterForm" [(visible)]="displayDialog" 
+[responsive]="true" 
+showEffect="fade" 
+[modal]="true"  
+[style]="{width: '600px', height:'200px'}"
+blockScroll="true"
+dismissableMask="true"
+[positionTop]="20"
+[resizable]="true"
+appendTo="body">
+<app-department-form (save)="updateSelectedRow($event)" #departmentform></app-department-form>
+</p-dialog>
+</span>

@@ -1,0 +1,86 @@
+<!-- <p>
+  search works!
+</p> -->
+<div class="ui-g">
+    <div class="ui-g-4"style="text-align: right"><h2>Search Topic:</h2></div>
+    <div class="ui-g-2"><h2>{{topic}}</h2></div>
+    <div class="ui-g-4"></div>
+  </div>
+<div [formGroup]="departmentForm">
+<div class="ui-g">
+  <div class="ui-g-4"style="text-align: right">Department:</div>
+  <div class="ui-g-2"><input formControlName="departmentName"type="text"pInputText placeholder></div>
+  <div class="ui-g-4">
+    <span *ngIf="departmentForm.get('departmentName').hasError('checkText') && departmentForm.get('departmentName').touched ">
+        <p-message severity="error" text="Don't Print Fuck plz!">
+        </p-message>
+      </span>
+    <span *ngIf="departmentForm.get('departmentName').hasError('pattern')">
+        <p-message severity="error" text="Error pattern Departmemt">
+        </p-message>
+      </span>
+  </div>
+
+</div>
+<div class="ui-g">
+  <div class="ui-g-4" style="text-align: right">Province:</div>
+  <div class="ui-g-2"><p-dropdown formControlName="province" [options]="cities1" ></p-dropdown></div>
+  <div class="ui-g-4"></div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-4"style="text-align: right">Budget:</div>
+  <div class="ui-g-4"><input formControlName="budgetFrom" type="text"pInputText placeholder> To  <input formControlName="budgetTo" type="text"pInputText placeholder></div>
+  <div class="ui-g-4">
+      <span *ngIf="departmentForm.get('budgetFrom','budgetTo').hasError('pattern')">
+        <p-message severity="error" text="Error budgetForm or budgetTo">
+        </p-message>
+      </span>
+    </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-4"style="text-align: right">Status:</div>
+  <div class="ui-g-2">
+    <p-radioButton formControlName="status" #radio1 name="Status" value="Y" (onClick)="checkStatus(radio1.value,remark)" ></p-radioButton>Active
+    <p-radioButton formControlName="status" #radio2 name="Status" value="N" (onClick)="checkStatus(radio2.value,remark)" ></p-radioButton>Deactive
+  </div>
+  <div class="ui-g-4">
+      <span *ngIf="departmentForm.get('status').hasError('required')">
+        <p-message severity="error" text="status is required">
+        </p-message>
+      </span>
+    </div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-4"style="text-align: right">Remark:</div>
+    <div class="ui-g-2"><input formControlName="remark" pInputText #remark type="text" 
+      [attr.disabled]="disableRemark" ></div>
+    <div class="ui-g-4">
+        <span *ngIf="departmentForm.get('remark').hasError('maxlength')">
+          <p-message severity="error" text="remark is maxLength">
+          </p-message>
+        </span>
+      </div>
+  </div>
+  <div class="ui-g">
+      <div class="ui-g-4"style="text-align: right">Telephone:</div>
+      <div class="ui-g-2"><input formControlName="telephone" type="text"pInputText placeholder></div>
+      <div class="ui-g-4">
+          <span *ngIf="departmentForm.get('telephone').hasError('pattern')">
+            <p-message severity="error" text="Error pattern is telephone">
+            </p-message>
+          </span>
+        </div>
+    </div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-4"></div>
+    <div class="ui-g-2">
+        <button pButton type="button"(click)="Search()"label="Search"></button>
+        <button pButton type="button"(click)="Cancel()"label="Cancel" style='margin-left: 5px;'></button>
+    </div>
+    <div class="ui-g-4"></div>
+  </div>
+  {{departmentForm.getRawValue()|json}}
+  {{departmentForm.get('remark').errors | json}}
+
+

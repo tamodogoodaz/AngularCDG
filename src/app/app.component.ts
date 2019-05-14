@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'webAngular';
+  searchIncrease(searchIncrease:number){
+    console.log('searchIncrease',searchIncrease)
+  }
+  decreaseIncrease(decreaseIncrease:number){
+    console.log('searchIncrease',decreaseIncrease)
+  }
 }

@@ -1,0 +1,159 @@
+<div [formGroup]="departmentFormedit">
+  <div class="ui-g">
+    <div class="ui-g-2" style="text-align: right">Department:</div>
+    <div class="ui-g-6">
+      <input
+        formControlName="departmentName"
+        type="text"
+        pInputText
+        placeholder
+      />
+    </div>
+    <div class="ui-g-3">
+      <span
+        *ngIf="
+          departmentFormedit.get('departmentName').hasError('required') &&
+          departmentFormedit.get('departmentName').touched"
+      >
+        <p-message severity="error" text="กรุณาใส่ชื่อ">
+        </p-message>
+      </span>
+      <span
+        *ngIf="departmentFormedit.get('departmentName').hasError('maxlength')"
+      >
+        <p-message severity="error" text="ความยาวเกินกำหนด">
+        </p-message>
+      </span>
+      <span
+        *ngIf="departmentFormedit.get('departmentName').hasError('pattern')"
+      >
+        <p-message severity="error" text="กรุณใส่ ตัวอักษรพิมพ์เล็กa-z ตัวอักษรพิมพ์ใหญ่ A-Z หรือตัวเลข 0-9 ">
+        </p-message>
+      </span>
+    </div>
+  </div>
+    <div class="ui-g"
+      *ngFor="let control of telephoneArray.controls; let i = index"
+    >
+      <div class="ui-g-2" style="text-align: right">Telephone: {{ i + 1 }}</div>
+      <div class="ui-g-6">
+        <input [formControl]="control" type="text" pInputText placeholder />
+      </div>
+      <div class="ui-g-1" style="text-align: left">
+        <button
+          class="ui-button-info"
+          *ngIf="i === 0"
+          pButton
+          label="+"
+          (click)="addTelephone()"
+        ></button>
+        <button
+          class="ui-button-danger"
+          *ngIf="i !== 0"
+          (click)="deleteTelephone(i)"
+          pButton
+          label="-"
+        ></button>
+      </div>
+      <div class="ui-g-2">
+        <span *ngIf="control.hasError('required') && control.touched">
+          <p-message severity="error" text="กรุณาใส่ตัวเลข">
+          </p-message>
+        </span>
+        <span *ngIf="control.hasError('maxlength')">
+          <p-message severity="error" text="เบอร์โทรศัพท์ไม่เกิน 11 ตัว">
+          </p-message>
+        </span>
+      </div>
+    </div>
+  <div class="ui-g">
+    <div class="ui-g-2" style="text-align: right">Province:</div>
+    <div class="ui-g-6">
+      <p-dropdown formControlName="province" [options]="cities1"></p-dropdown>
+    </div>
+    <div class="ui-g-3">
+      <span *ngIf="departmentFormedit.get('province').hasError('required') && departmentFormedit.get('province').touched">
+        <p-message severity="error" text="กรุณาเลือก Province">
+        </p-message>
+      </span>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-2" style="text-align: right">Budget:</div>
+    <div class="ui-g-6">
+      <input formControlName="budget" type="text" pInputText placeholder />
+    </div>
+    <div class="ui-g-3">
+      <span *ngIf="departmentFormedit.get('budget').hasError('maxlength')">
+        <p-message severity="error" text="ความยาวเกินกำหนด">
+        </p-message>
+      </span>
+      <span *ngIf="departmentFormedit.get('budget').hasError('required')">
+        <p-message severity="error" text="กรุณาใส่จำนวณ budget ">
+        </p-message>
+      </span>
+      <span *ngIf="departmentFormedit.get('budget').hasError('pattern')">
+        <p-message severity="error" text="ใส่ได้เฉพาะตัวเลข 1-9 เท่านั้น">
+        </p-message>
+      </span>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-2" style="text-align: right">Status:</div>
+    <div class="ui-g-6">
+      <p-radioButton
+        formControlName="status"
+        #radio1
+        name="Status"
+        value="Y"
+        (onClick)="checkStatus(radio1.value)"
+      ></p-radioButton
+      >Active
+      <p-radioButton
+        formControlName="status"
+        #radio2
+        name="Status"
+        value="N"
+        (onClick)="checkStatus(radio2.value)"
+      ></p-radioButton
+      >Deactive
+    </div>
+    <div class="ui-g-3">
+      <span *ngIf="departmentFormedit.get('status').hasError('required')">
+        <p-message severity="error" text="กรุณาเลือก Status "> </p-message>
+      </span>
+    </div>
+  </div>
+  <div class="ui-g">
+    <div class="ui-g-2" style="text-align: right">Remark:</div>
+    <div class="ui-g-6">
+      <input
+        formControlName="remark"
+        pInputText
+        type="text"
+        [attr.disabled]="disableRemark"
+      />
+    </div>
+    <div class="ui-g-3">
+      <span *ngIf="departmentFormedit.get('remark').hasError('maxlength')">
+        <p-message severity="error" text="ความยาวตัวอักษรเกินขนาด"> </p-message>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-2"></div>
+  <div class="ui-g-6">
+    <button pButton type="button" (click)="Save()" label="Save"></button>
+    <button
+      pButton
+      type="button"
+      (click)="Cancel()"
+      label="Cancel"
+      style="margin-left: 5px;"
+    ></button>
+  </div>
+  <div class="ui-g-3"></div>
+</div>
+{{ departmentFormedit.getRawValue() | json }}
+{{ departmentFormedit.get("remark").errors | json }}

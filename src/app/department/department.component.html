@@ -1,0 +1,10 @@
+<!-- <p>
+  department works!
+</p> -->
+<!-- {{hp+1}}
+<input type ="text" [value]="hp"pInputText>
+<button pButton type="button"(click)="incre()"class="ui-button-success"label="+"></button>
+<button pButton type="button"(click)="incre2()"class="ui-button-danger"label="-"></button> -->
+<app-search (search)="searchTopic($event)" (cancel)="onCancel()"></app-search>
+<button pButton type="button"(click)="Display()"label="Toggle"></button>
+<app-department-table *ngIf="Display" #departmentTable></app-department-table>
